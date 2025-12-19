@@ -13,6 +13,7 @@ void main() async {
     debugPrint('Failed to initialize database: $e');
   }
 
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(const App());
 }
