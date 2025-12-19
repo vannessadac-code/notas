@@ -6,6 +6,9 @@ class TextFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLines;
   final String? Function(String?)? validator;
+  final String? labelText;
+  final Widget? prefixIcon;
+  final void Function(String)? onChanged;
 
   const TextFieldWidget({
     super.key,
@@ -13,7 +16,10 @@ class TextFieldWidget extends StatelessWidget {
     this.hintText,
     this.keyboardType,
     this.maxLines,
-    this.validator
+    this.validator,
+    this.labelText,
+    this.prefixIcon,
+    this.onChanged,
   });
 
   @override
@@ -22,9 +28,12 @@ class TextFieldWidget extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       maxLines: maxLines,
+      onChanged: onChanged,
       decoration: InputDecoration(
-        labelText: hintText,
+        labelText: labelText,
+        hintText: hintText,
         border: const OutlineInputBorder(),
+        prefixIcon: prefixIcon,
       ),
       validator: validator,
     );

@@ -50,7 +50,7 @@ class _NoteFormState extends State<NoteForm> {
         children: [
           TextFieldWidget(
             controller: _titleController,
-            hintText: 'Title',
+            labelText: 'Title',
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "El título es requerido";
@@ -61,7 +61,7 @@ class _NoteFormState extends State<NoteForm> {
           const SizedBox(height: 16),
           TextFieldWidget(
             controller: _contentController,
-            hintText: 'Content',
+            labelText: 'Content',
             maxLines: 3,
           ),
           const SizedBox(height: 16),

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:notesapp/features/notes/domain/entities/note.dart';
 import 'package:notesapp/features/notes/domain/usecases/create_note_use_case.dart';
 import 'package:notesapp/features/notes/domain/usecases/delete_note_use_case.dart';
@@ -107,5 +108,13 @@ class NotesNotifier extends ChangeNotifier {
   void clearError() {
     _error = null;
     notifyListeners();
+  }
+
+  Future<void> searchNotes(String query) async {
+    Map<String, dynamic> filters = {};
+    if (query.isNotEmpty) {
+      filters['title'] = query;
+    }
+    await loadNotes(filters: filters);
   }
 }
