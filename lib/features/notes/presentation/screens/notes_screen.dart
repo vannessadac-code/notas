@@ -92,6 +92,26 @@ class _NotesScreenState extends State<NotesScreen> {
     );
   }
 
+  void _handleDelete(Function() onPressed) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        insetPadding: EdgeInsets.all(16),
+        content: Text("¿Seguro desea eliminar la nota?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancelar"),
+          ),
+          ElevatedButton(
+            onPressed: () => {onPressed.call(), Navigator.pop(context)},
+            child: Text("Confirmar"),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -204,7 +224,11 @@ class _NotesScreenState extends State<NotesScreen> {
                                         _showEditNoteDialog(note);
                                       } else if (value == 'pin') {
                                         notifier.togglePin(note);
-                                      } else if (value == 'delete') {}
+                                      } else if (value == 'delete') {
+                                        _handleDelete(
+                                          () => notifier.deleteNote(note.id!),
+                                        );
+                                      }
                                     },
                                     itemBuilder: (BuildContext context) =>
                                         <PopupMenuEntry<String>>[
