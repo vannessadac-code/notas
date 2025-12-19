@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:notesapp/features/notes/presentation/notifiers/notes_notifier.dart';
+import 'package:notesapp/features/notes/presentation/widgets/delete_dialog.dart';
 import 'package:notesapp/features/notes/presentation/widgets/note_form.dart';
 import 'package:provider/provider.dart';
 import 'package:notesapp/features/notes/presentation/screens/note_details_screen.dart';
@@ -89,26 +90,6 @@ class _NotesScreenState extends State<NotesScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => NoteDetailsScreen(note: note)),
-    );
-  }
-
-  void _handleDelete(Function() onPressed) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        insetPadding: EdgeInsets.all(16),
-        content: Text("¿Seguro desea eliminar la nota?"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text("Cancelar"),
-          ),
-          ElevatedButton(
-            onPressed: () => {onPressed.call(), Navigator.pop(context)},
-            child: Text("Confirmar"),
-          ),
-        ],
-      ),
     );
   }
 
@@ -225,7 +206,8 @@ class _NotesScreenState extends State<NotesScreen> {
                                       } else if (value == 'pin') {
                                         notifier.togglePin(note);
                                       } else if (value == 'delete') {
-                                        _handleDelete(
+                                        handleDelete(
+                                          context,
                                           () => notifier.deleteNote(note.id!),
                                         );
                                       }

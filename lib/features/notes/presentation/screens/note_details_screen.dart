@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:notesapp/features/notes/domain/entities/note.dart";
 import "package:notesapp/features/notes/presentation/notifiers/notes_notifier.dart";
+import "package:notesapp/features/notes/presentation/widgets/delete_dialog.dart";
 import "package:notesapp/features/notes/presentation/widgets/note_form.dart";
 import "package:provider/provider.dart";
 
@@ -37,31 +38,6 @@ class NoteDetailsScreen extends StatelessWidget {
     );
   }
 
-  void _showDeleteConfirmation(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete Note'),
-        content: const Text('Are you sure you want to delete this note?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              context.read<NotesNotifier>().deleteNote(note.id!);
-              Navigator.pop(dialogContext);
-              Navigator.pop(context);
-            },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +54,10 @@ class NoteDetailsScreen extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () => _showDeleteConfirmation(context),
+            onPressed: () => handleDelete(context, () {
+              context.read<NotesNotifier>().deleteNote(note.id!);
+              Navigator.pop(context);
+            }),
           ),
         ],
       ),
