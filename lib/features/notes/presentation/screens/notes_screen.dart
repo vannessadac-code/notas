@@ -204,9 +204,7 @@ class _NotesScreenState extends State<NotesScreen> {
                                         _showEditNoteDialog(note);
                                       } else if (value == 'pin') {
                                         notifier.togglePin(note);
-                                      } else if (value == 'delete') {
-                                        notifier.deleteNote(note.id!);
-                                      }
+                                      } else if (value == 'delete') {}
                                     },
                                     itemBuilder: (BuildContext context) =>
                                         <PopupMenuEntry<String>>[

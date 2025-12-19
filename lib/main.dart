@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:notesapp/app.dart';
 import 'package:notesapp/core/database/database_helper.dart';
 
@@ -11,6 +12,7 @@ void main() async {
   } catch (e) {
     debugPrint('Failed to initialize database: $e');
   }
+
 
   runApp(const App());
 }
